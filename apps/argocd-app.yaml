@@ -10,7 +10,7 @@ metadata:
     argocd-image-updater.argoproj.io/backend.match-tags: ^[0-9]+$
     argocd-image-updater.argoproj.io/backend.helm.image-name: backend.image.repository
     argocd-image-updater.argoproj.io/backend.helm.image-tag: backend.image.tag
-    argocd-image-updater.argoproj.io/backend.pull-secret: pullsecret:argocd/docker-hub-creds
+    argocd-image-updater.argoproj.io/backend.pull-secret: secret:argocd/docker-hub-creds
 
     # 2. Track Frontend Image
     argocd-image-updater.argoproj.io/frontend.image-list: my-frontend=docker.io/mahmoudali2111/linkvault-frontend
@@ -18,7 +18,7 @@ metadata:
     argocd-image-updater.argoproj.io/frontend.match-tags: ^[0-9]+$
     argocd-image-updater.argoproj.io/frontend.helm.image-name: frontend.image.repository
     argocd-image-updater.argoproj.io/frontend.helm.image-tag: frontend.image.tag
-    argocd-image-updater.argoproj.io/frontend.pull-secret: pullsecret:argocd/docker-hub-creds
+    argocd-image-updater.argoproj.io/frontend.pull-secret: secret:argocd/docker-hub-creds
 
     # 3. Write updates back to the GitOps repository
     argocd-image-updater.argoproj.io/write-back-method: git
