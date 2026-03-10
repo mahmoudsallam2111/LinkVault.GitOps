@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: linkvault-production
+  name: linkvault
   namespace: argocd
   annotations:
     # 1. Track Backend Image
@@ -26,14 +26,14 @@ spec:
   source:
     # IMPORTANT: Update this repoURL to point to your actual Git repository URL
     # after you push the LinkVault.GitOps folder to your source control.
-    repoURL: 'https://dev.azure.com/mahmoudsallam2111/LinkVault/_git/LinkVault.GitOps'
-    path: 'charts/linkvault'
+    repoURL: "https://dev.azure.com/mahmoudsallam2111/LinkVault/_git/LinkVault.GitOps"
+    path: "charts/linkvault"
     targetRevision: HEAD
     helm:
       valueFiles:
         - values.yaml
   destination:
-    server: 'https://kubernetes.default.svc'
+    server: "https://kubernetes.default.svc"
     namespace: linkvault
   syncPolicy:
     automated:
