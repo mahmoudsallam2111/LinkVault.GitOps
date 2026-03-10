@@ -6,17 +6,19 @@ metadata:
   annotations:
     # 1. Track Backend Image
     argocd-image-updater.argoproj.io/backend.image-list: my-backend=docker.io/mahmoudali2111/linkvault-backend
-    argocd-image-updater.argoproj.io/backend.update-strategy: latest
+    argocd-image-updater.argoproj.io/backend.update-strategy: regexp
+    argocd-image-updater.argoproj.io/backend.match-tags: ^[0-9]+$
     argocd-image-updater.argoproj.io/backend.helm.image-name: backend.image.repository
     argocd-image-updater.argoproj.io/backend.helm.image-tag: backend.image.tag
-    argocd-image-updater.argoproj.io/backend.pull-secret: secret:argocd/docker-hub-creds
+    argocd-image-updater.argoproj.io/backend.pull-secret: pullsecret:argocd/docker-hub-creds
 
     # 2. Track Frontend Image
     argocd-image-updater.argoproj.io/frontend.image-list: my-frontend=docker.io/mahmoudali2111/linkvault-frontend
-    argocd-image-updater.argoproj.io/frontend.update-strategy: latest
+    argocd-image-updater.argoproj.io/frontend.update-strategy: regexp
+    argocd-image-updater.argoproj.io/frontend.match-tags: ^[0-9]+$
     argocd-image-updater.argoproj.io/frontend.helm.image-name: frontend.image.repository
     argocd-image-updater.argoproj.io/frontend.helm.image-tag: frontend.image.tag
-    argocd-image-updater.argoproj.io/frontend.pull-secret: secret:argocd/docker-hub-creds
+    argocd-image-updater.argoproj.io/frontend.pull-secret: pullsecret:argocd/docker-hub-creds
 
     # 3. Write updates back to the GitOps repository
     argocd-image-updater.argoproj.io/write-back-method: git
@@ -24,8 +26,7 @@ metadata:
 spec:
   project: default
   source:
-    # IMPORTANT: Update this repoURL to point to your actual Git repository URL
-    # after you push the LinkVault.GitOps folder to your source control.
+    # IMPORTANT: Ensure this matches the repository where your helm charts live
     repoURL: "https://dev.azure.com/mahmoudsallam2111/LinkVault/_git/LinkVault.GitOps"
     path: "charts/linkvault"
     targetRevision: HEAD
