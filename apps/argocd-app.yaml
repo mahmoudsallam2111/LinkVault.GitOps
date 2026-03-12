@@ -11,24 +11,23 @@ metadata:
 
     # Backend — pick highest numeric tag (e.g. 30 > 29 > 28...)
     argocd-image-updater.argoproj.io/backend.update-strategy: newest-build
-    argocd-image-updater.argoproj.io/backend.sort-mode: numeric
+    argocd-image-updater.argoproj.io/backend.force-update: "true"
     argocd-image-updater.argoproj.io/backend.allow-tags: regexp:^[0-9]+$
     argocd-image-updater.argoproj.io/backend.helm.image-name: backend.image.repository
     argocd-image-updater.argoproj.io/backend.helm.image-tag: backend.image.tag
-    argocd-image-updater.argoproj.io/backend.pull-secret: secret:argocd/docker-hub-creds
 
     # Frontend — pick highest numeric tag
     argocd-image-updater.argoproj.io/frontend.update-strategy: newest-build
-    argocd-image-updater.argoproj.io/frontend.sort-mode: numeric
+    argocd-image-updater.argoproj.io/frontend.force-update: "true"
     argocd-image-updater.argoproj.io/frontend.allow-tags: regexp:^[0-9]+$
     argocd-image-updater.argoproj.io/frontend.helm.image-name: frontend.image.repository
     argocd-image-updater.argoproj.io/frontend.helm.image-tag: frontend.image.tag
-    argocd-image-updater.argoproj.io/frontend.pull-secret: secret:argocd/docker-hub-creds
 
     # Git write-back — credentials in write-back-method, target points to values file
+    argocd-image-updater.argoproj.io/git-repository: "https://dev.azure.com/mahmoudsallam2111/LinkVault/_git/LinkVault.GitOps"
     argocd-image-updater.argoproj.io/git-branch: main
-    argocd-image-updater.argoproj.io/write-back-method: git:secret:argocd/git-creds
-    argocd-image-updater.argoproj.io/write-back-target: helmvalues:values.yaml
+    argocd-image-updater.argoproj.io/write-back-method: git
+    argocd-image-updater.argoproj.io/write-back-target: helmvalues:./values.yaml
 
 spec:
   project: default
