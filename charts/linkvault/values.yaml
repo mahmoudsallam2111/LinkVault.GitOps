@@ -42,7 +42,7 @@ frontend:
   replicaCount: 1
   image:
     repository: mahmoudali2111/linkvault-frontend
-    tag: "1"
+    tag: "34"
     pullPolicy: IfNotPresent
   service:
     type: ClusterIP
