@@ -11,7 +11,7 @@ backend:
   replicaCount: 1
   image:
     repository: mahmoudali2111/linkvault-backend
-    tag: latest
+    tag: "35"
     pullPolicy: IfNotPresent
   service:
     type: ClusterIP
@@ -101,14 +101,14 @@ ingress:
   className: nginx
   # Hosts configuration
   hosts:
-    - host: linkvault.local
-      paths:
-        - path: /api
-          pathType: Prefix
-          service: backend
-        - path: /
-          pathType: Prefix
-          service: frontend
+  - host: linkvault.local
+    paths:
+    - path: /api
+      pathType: Prefix
+      service: backend
+    - path: /
+      pathType: Prefix
+      service: frontend
   # TLS configuration (optional)
   tls: []
   # - secretName: linkvault-tls
