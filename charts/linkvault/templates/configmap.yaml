@@ -69,6 +69,6 @@ data:
             root   /usr/share/nginx/html;
         }
     }
-  App__HealthCheckUrl: {{ .Values.backend.healthCheck.path | quote }}
+  App__HealthCheckUrl: "http://localhost:{{ .Values.backend.service.targetPort }}{{ .Values.backend.healthCheck.path }}"
   AuthServer__Authority: {{ .Values.backend.app.selfUrl | quote }}
   AuthServer__RequireHttpsMetadata: "false"
