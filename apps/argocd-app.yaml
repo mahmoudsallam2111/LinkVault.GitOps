@@ -4,29 +4,34 @@ metadata:
   name: linkvault
   namespace: argocd
   annotations:
-    # 1. Track Backend Image
-    argocd-image-updater.argoproj.io/backend.image-list: backend=docker.io/mahmoudali2111/linkvault-backend
-    argocd-image-updater.argoproj.io/backend.update-strategy: regexp
-    argocd-image-updater.argoproj.io/backend.match-tags: ^[0-9]+$
+    # All images declared in ONE image-list annotation
+    argocd-image-updater.argoproj.io/image-list: >-
+      backend=docker.io/mahmoudali2111/linkvault-backend,
+      frontend=docker.io/mahmoudali2111/linkvault-frontend
+
+    # Backend — pick highest numeric tag (e.g. 30 > 29 > 28...)
+    argocd-image-updater.argoproj.io/backend.update-strategy: newest-build
+    argocd-image-updater.argoproj.io/backend.sort-mode: numeric
+    argocd-image-updater.argoproj.io/backend.allow-tags: regexp:^[0-9]+$
     argocd-image-updater.argoproj.io/backend.helm.image-name: backend.image.repository
     argocd-image-updater.argoproj.io/backend.helm.image-tag: backend.image.tag
-    argocd-image-updater.argoproj.io/backend.pull-secret: pullsecret:argocd/docker-hub-creds
+    argocd-image-updater.argoproj.io/backend.pull-secret: secret:argocd/docker-hub-creds
 
-    # 2. Track Frontend Image
-    argocd-image-updater.argoproj.io/frontend.image-list: frontend=docker.io/mahmoudali2111/linkvault-frontend
-    argocd-image-updater.argoproj.io/frontend.update-strategy: regexp
-    argocd-image-updater.argoproj.io/frontend.match-tags: ^[0-9]+$
+    # Frontend — pick highest numeric tag
+    argocd-image-updater.argoproj.io/frontend.update-strategy: newest-build
+    argocd-image-updater.argoproj.io/frontend.sort-mode: numeric
+    argocd-image-updater.argoproj.io/frontend.allow-tags: regexp:^[0-9]+$
     argocd-image-updater.argoproj.io/frontend.helm.image-name: frontend.image.repository
     argocd-image-updater.argoproj.io/frontend.helm.image-tag: frontend.image.tag
-    argocd-image-updater.argoproj.io/frontend.pull-secret: pullsecret:argocd/docker-hub-creds
+    argocd-image-updater.argoproj.io/frontend.pull-secret: secret:argocd/docker-hub-creds
 
-    # 3. Write updates back to the GitOps repository
+    # Git write-back — credentials in write-back-method, target points to values file
     argocd-image-updater.argoproj.io/write-back-method: git:secret:argocd/git-creds
-argocd-image-updater.argoproj.io/write-back-target: helmvalues:charts/linkvault/values.yaml
+    argocd-image-updater.argoproj.io/write-back-target: helmvalues:charts/linkvault/values.yaml
+
 spec:
   project: default
   source:
-    # IMPORTANT: Ensure this matches the repository where your helm charts live
     repoURL: "https://dev.azure.com/mahmoudsallam2111/LinkVault/_git/LinkVault.GitOps"
     path: "charts/linkvault"
     targetRevision: HEAD
