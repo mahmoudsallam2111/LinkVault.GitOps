@@ -26,15 +26,16 @@ metadata:
     argocd-image-updater.argoproj.io/frontend.pull-secret: secret:argocd/docker-hub-creds
 
     # Git write-back — credentials in write-back-method, target points to values file
+    argocd-image-updater.argoproj.io/git-branch: main
     argocd-image-updater.argoproj.io/write-back-method: git:secret:argocd/git-creds
-    argocd-image-updater.argoproj.io/write-back-target: helmvalues:charts/linkvault/values.yaml
+    argocd-image-updater.argoproj.io/write-back-target: helmvalues:values.yaml
 
 spec:
   project: default
   source:
     repoURL: "https://dev.azure.com/mahmoudsallam2111/LinkVault/_git/LinkVault.GitOps"
     path: "charts/linkvault"
-    targetRevision: HEAD
+    targetRevision: main
     helm:
       valueFiles:
         - values.yaml
@@ -47,3 +48,4 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
+
