@@ -5,9 +5,7 @@ metadata:
   namespace: argocd
   annotations:
     # All images declared in ONE image-list annotation
-    argocd-image-updater.argoproj.io/image-list: >-
-      backend=docker.io/mahmoudali2111/linkvault-backend,
-      frontend=docker.io/mahmoudali2111/linkvault-frontend
+    argocd-image-updater.argoproj.io/image-list: "backend=docker.io/mahmoudali2111/linkvault-backend,frontend=docker.io/mahmoudali2111/linkvault-frontend"
 
     # Backend — pick highest numeric tag (e.g. 30 > 29 > 28...)
     argocd-image-updater.argoproj.io/backend.update-strategy: newest-build
@@ -43,7 +41,6 @@ spec:
     namespace: linkvault
   syncPolicy:
     automated:
-      enabled: true
       prune: true
       selfHeal: true
     syncOptions:

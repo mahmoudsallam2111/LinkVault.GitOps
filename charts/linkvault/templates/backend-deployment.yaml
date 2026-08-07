@@ -51,15 +51,13 @@ spec:
                   name: {{ include "linkvault.fullname" . }}-secrets
                   key: certificate-passphrase
           livenessProbe:
-            httpGet:
-              path: {{ .Values.backend.healthCheck.path }}
-              port: http
+            tcpSocket:
+              port: {{ .Values.backend.service.targetPort }}
             initialDelaySeconds: {{ .Values.backend.healthCheck.initialDelaySeconds }}
             periodSeconds: {{ .Values.backend.healthCheck.periodSeconds }}
           readinessProbe:
-            httpGet:
-              path: {{ .Values.backend.healthCheck.path }}
-              port: http
+            tcpSocket:
+              port: {{ .Values.backend.service.targetPort }}
             initialDelaySeconds: {{ .Values.backend.healthCheck.initialDelaySeconds }}
             periodSeconds: {{ .Values.backend.healthCheck.periodSeconds }}
           volumeMounts:
