@@ -16,10 +16,10 @@ spec:
         - name: OpenIddict__Applications__LinkVault_App__ClientId
           value: "LinkVault_App"
         - name: OpenIddict__Applications__LinkVault_App__RootUrl
-          value: "http://linkvault.local"
+          value: {{ .Values.backend.app.selfUrl | quote }}
         - name: OpenIddict__Applications__LinkVault_Swagger__ClientId
           value: "LinkVault_Swagger"
         - name: OpenIddict__Applications__LinkVault_Swagger__RootUrl
-          value: "http://linkvault.local"
+          value: {{ .Values.backend.app.selfUrl | quote }}
       restartPolicy: OnFailure
   backoffLimit: 4

@@ -31,8 +31,8 @@ backend:
     periodSeconds: 10
   # Application settings
   app:
-    selfUrl: "http://linkvault.local"
-    corsOrigins: "http://linkvault.local,http://localhost:4200"
+    selfUrl: "http://linkvault.local:8888"
+    corsOrigins: "http://linkvault.local:8888,http://linkvault.local,http://localhost:4200"
     disablePII: "false"
 # =============================================================================
 # Frontend Configuration (Angular)

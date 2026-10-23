@@ -24,12 +24,12 @@ data:
     {
       "production": true,
       "application": {
-        "baseUrl": "http://linkvault.local",
+        "baseUrl": {{ .Values.backend.app.selfUrl | quote }},
         "name": "LinkVault"
       },
       "oAuthConfig": {
-        "issuer": "http://linkvault.local/",
-        "redirectUri": "http://linkvault.local",
+        "issuer": "{{ .Values.backend.app.selfUrl }}/",
+        "redirectUri": {{ .Values.backend.app.selfUrl | quote }},
         "clientId": "LinkVault_App",
         "responseType": "code",
         "scope": "offline_access LinkVault",
@@ -37,11 +37,11 @@ data:
       },
       "apis": {
         "default": {
-          "url": "http://linkvault.local",
+          "url": {{ .Values.backend.app.selfUrl | quote }},
           "rootNamespace": "LinkVault"
         },
         "AbpAccountPublic": {
-          "url": "http://linkvault.local",
+          "url": {{ .Values.backend.app.selfUrl | quote }},
           "rootNamespace": "AbpAccountPublic"
         }
       }
