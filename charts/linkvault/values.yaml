@@ -11,7 +11,7 @@ backend:
   replicaCount: 1
   image:
     repository: mahmoudali2111/linkvault-backend
-    tag: "52"
+    tag: "53"
     pullPolicy: IfNotPresent
   service:
     type: ClusterIP
@@ -42,7 +42,7 @@ frontend:
   replicaCount: 1
   image:
     repository: mahmoudali2111/linkvault-frontend
-    tag: "52"
+    tag: "53"
     pullPolicy: IfNotPresent
   service:
     type: ClusterIP
